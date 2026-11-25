@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ELMON Technology - حلول برمجية وتطوير مواقع ومتاجر إلكترونية احترافية">
+    <title>ELMON Technology | حلول برمجية وتطوير مواقع</title>
+    <meta name="theme-color" content="#050816">
+    <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #050816;
+            --bg-card: #0f172a;
+            --bg-card-hover: #1e293b;
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-glow: rgba(99, 102, 241, 0.4);
+            --accent: #22d3ee;
+            --accent-2: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(148, 163, 184, 0.15);
+            --gradient: linear-gradient(135deg, #6366f1 0%, #22d3ee 100%);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { 
+            background-color: var(--bg-dark); 
+            color: var(--text-main); 
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { display: block; max-width: 100%; }
+
+        .bg-gradient {
+            position: fixed; inset: 0; z-index: -1;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(34, 211, 238, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 60%);
+        }
+
+        /* ===== الهيدر ===== */
+        header {
+            background: rgba(5, 8, 22, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; z-index: 1000;
+            padding: 1rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: 0.3s;
+        }
+        .logo { 
+            font-size: 1.6rem; font-weight: 900; 
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .logo-icon {
+            width: 40px; height: 40px; border-radius: 10px;
+            background: var(--gradient);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; font-weight: 900; color: #fff;
+            box-shadow: 0 0 25px var(--primary-glow);
+        }
+        .logo-text { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .logo-text span { -webkit-text-fill-color: var(--text-main); color: var(--text-main); }
+        
+        nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; }
+        nav a { 
+            font-weight: 600; color: var(--text-muted); 
+            transition: 0.3s; position: relative; padding: 0.5rem 0;
+        }
+        nav a::after {
+            content: ''; position: absolute; bottom: 0; right: 0;
+            width: 0; height: 2px; background: var(--gradient);
+            transition: 0.3s;
+        }
+        nav a:hover, nav a.active { color: var(--text-main); }
+        nav a:hover::after, nav a.active::after { width: 100%; }
+        
+        .admin-only-link a {
+            color: var(--accent);
+            background: rgba(34, 211, 238, 0.1);
+            padding: 0.4rem 0.9rem !important;
+            border-radius: 8px;
+            border: 1px solid rgba(34, 211, 238, 0.3);
+        }
+        .admin-only-link a::after { display: none; }
+        .admin-only-link a:hover { background: rgba(34, 211, 238, 0.2); }
+        
+        .btn-cta {
+            background: var(--gradient); color: #fff; 
+            padding: 0.65rem 1.5rem; border-radius: 50px; 
+            font-weight: 700; transition: 0.3s;
+            box-shadow: 0 4px 20px var(--primary-glow);
+            display: inline-flex; align-items: center; gap: 0.5rem;
+        }
+        .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--primary-glow); }
+        
+        .mobile-toggle { display: none; background: none; border: none; color: var(--text-main); font-size: 1.5rem; cursor: pointer; }
+
+        /* ===== الهيرو ===== */
+        .hero {
+            padding: 7rem 5% 5rem;
+            text-align: center;
+            max-width: 1000px; margin: 0 auto;
+        }
+        .badge {
+            background: rgba(99, 102, 241, 0.12); 
+            color: var(--primary-light);
+            padding: 0.5rem 1.2rem; border-radius: 50px; font-size: 0.9rem;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            margin-bottom: 2rem; 
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            font-weight: 600;
+            animation: pulse 2.5s ease-in-out infinite;
+        }
+        .badge::before {
+            content: ''; width: 8px; height: 8px; border-radius: 50%;
+            background: var(--accent-2); box-shadow: 0 0 10px var(--accent-2);
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+            50% { box-shadow: 0 0 0 12px rgba(99, 102, 241, 0); }
+        }
+        .hero h1 { 
+            font-size: 3.5rem; font-weight: 900; 
+            margin-bottom: 1.5rem; line-height: 1.2;
+        }
+        .hero h1 .gradient-text {
+            background: var(--gradient); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            background-clip: text;
+        }
+        .hero p { 
+            color: var(--text-muted); font-size: 1.2rem; 
+            margin-bottom: 3rem; max-width: 700px; margin-left: auto; margin-right: auto;
+        }
+        .hero-btns { 
+            display: flex; gap: 1rem; justify-content: center; 
+            flex-wrap: wrap; margin-bottom: 4rem;
+        }
+        .btn-primary-lg {
+            background: var(--gradient); color: #fff;
+            padding: 1rem 2.2rem; border-radius: 12px;
+            font-weight: 700; font-size: 1.05rem; transition: 0.3s;
+            box-shadow: 0 8px 30px var(--primary-glow);
+            display: inline-flex; align-items: center; gap: 0.6rem;
+        }
+        .btn-primary-lg:hover { transform: translateY(-3px); box-shadow: 0 12px 40px var(--primary-glow); }
+        .btn-secondary-lg {
+            background: rgba(148, 163, 184, 0.08); color: var(--text-main);
+            padding: 1rem 2.2rem; border-radius: 12px;
+            border: 1px solid var(--border); font-weight: 700; font-size: 1.05rem;
+            transition: 0.3s;
+            display: inline-flex; align-items: center; gap: 0.6rem;
+        }
+        .btn-secondary-lg:hover { 
+            border-color: var(--primary); 
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        /* ===== إحصائيات ===== */
+        .stats-bar {
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem; 
+            max-width: 900px; margin: 0 auto;
+            padding: 2rem;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+        .stat-item { text-align: center; padding: 1rem; }
+        .stat-num { 
+            font-size: 2.2rem; font-weight: 900; 
+            background: var(--gradient);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .stat-label { color: var(--text-muted); font-size: 0.9rem; margin-top: 0.3rem; }
+
+        /* ===== الأقسام ===== */
+        .section { padding: 5rem 5%; max-width: 1200px; margin: 0 auto; }
+        .section-title { text-align: center; margin-bottom: 3.5rem; }
+        .section-title .eyebrow {
+            color: var(--primary-light); font-weight: 700; 
+            font-size: 0.9rem; letter-spacing: 2px;
+            text-transform: uppercase; margin-bottom: 0.8rem;
+            display: block;
+        }
+        .section-title h2 { 
+            font-size: 2.5rem; font-weight: 900; 
+            margin-bottom: 0.8rem;
+        }
+        .section-title h2 .gradient-text {
+            background: var(--gradient); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section-title p { color: var(--text-muted); font-size: 1.1rem; }
+
+        /* ===== خدمات ===== */
+        .grid-3 { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 1.5rem; 
+        }
+        .service-card {
+            background: rgba(15, 23, 42, 0.7); 
+            padding: 2.5rem 2rem; border-radius: 20px;
+            border: 1px solid var(--border); transition: 0.4s;
+            position: relative; overflow: hidden;
+        }
+        .service-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0;
+            height: 3px; background: var(--gradient);
+            transform: scaleX(0); transform-origin: right;
+            transition: 0.4s;
+        }
+        .service-card:hover { 
+            transform: translateY(-8px); 
+            border-color: rgba(99, 102, 241, 0.5);
+            background: var(--bg-card-hover);
+        }
+        .service-card:hover::before { transform: scaleX(1); }
+        .service-icon {
+            width: 60px; height: 60px; border-radius: 15px;
+            background: rgba(99, 102, 241, 0.12);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; margin-bottom: 1.5rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+        .service-card h3 { margin-bottom: 0.8rem; font-size: 1.3rem; font-weight: 700; }
+        .service-card p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* ===== بطاقات المشاريع ===== */
+        .project-card {
+            background: rgba(15, 23, 42, 0.7); 
+            border-radius: 20px; overflow: hidden;
+            border: 1px solid var(--border); 
+            display: flex; flex-direction: column;
+            transition: 0.4s;
+        }
+        .project-card:hover { 
+            transform: translateY(-8px); 
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.15);
+        }
+        .project-img-wrap { position: relative; overflow: hidden; height: 220px; }
+        .project-img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            background: #0b1120; transition: 0.5s;
+        }
+        .project-card:hover .project-img { transform: scale(1.08); }
+        .project-body { padding: 1.8rem; flex: 1; display: flex; flex-direction: column; }
+        .project-cat { 
+            font-size: 0.8rem; color: var(--accent); 
+            font-weight: 700; margin-bottom: 0.6rem;
+            background: rgba(34, 211, 238, 0.1);
+            padding: 0.25rem 0.8rem; border-radius: 50px;
+            display: inline-block; width: fit-content;
+            border: 1px solid rgba(34, 211, 238, 0.2);
+        }
+        .project-title { font-size: 1.3rem; margin-bottom: 0.7rem; font-weight: 700; }
+        .project-desc { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.5rem; flex: 1; }
+        .project-link {
+            display: block; text-align: center; 
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary-light); padding: 0.75rem; 
+            border-radius: 10px; font-weight: 700;
+            border: 1px solid rgba(99, 102, 241, 0.3); 
+            transition: 0.3s;
+        }
+        .project-link:hover { background: var(--primary); color: #fff; }
+
+        .view-all-box { text-align: center; margin-top: 3rem; }
+
+        /* ===== Footer ===== */
+        footer {
+            border-top: 1px solid var(--border); 
+            padding: 3rem 5% 2rem;
+            margin-top: 4rem;
+            background: rgba(5, 8, 22, 0.8);
+        }
+        .footer-content {
+            max-width: 1200px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem; margin-bottom: 2rem;
+        }
+        .footer-brand h3 {
+            font-size: 1.4rem; font-weight: 900; margin-bottom: 0.8rem;
+            background: var(--gradient);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .footer-brand p { color: var(--text-muted); font-size: 0.9rem; }
+        .footer-col h4 { margin-bottom: 1rem; font-size: 1rem; }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 0.6rem; }
+        .footer-col a { color: var(--text-muted); font-size: 0.9rem; transition: 0.3s; }
+        .footer-col a:hover { color: var(--primary-light); }
+        .footer-bottom {
+            text-align: center; padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted); font-size: 0.9rem;
+        }
+
+        /* ===== Skeleton Loading ===== */
+        .skeleton {
+            background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 12px;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1rem; }
+            .section-title h2 { font-size: 1.8rem; }
+            nav ul { 
+                display: none; 
+                position: absolute; top: 100%; right: 0; left: 0;
+                flex-direction: column; gap: 0;
+                background: rgba(5, 8, 22, 0.98);
+                padding: 1rem; border-bottom: 1px solid var(--border);
+            }
+            nav ul.open { display: flex; }
+            nav ul li { padding: 0.8rem 0; border-bottom: 1px solid var(--border); width: 100%; }
+            .mobile-toggle { display: block; }
+            .stats-bar { padding: 1.5rem; }
+            .stat-num { font-size: 1.8rem; }
+        }
+    
+/* ===== ELMON UI upgrade: polish + motion (GPU-only transforms/opacity) ===== */
+:root{--ease:cubic-bezier(.22,1,.36,1);--surface:rgba(15,23,42,.62)}
+::selection{background:rgba(99,102,241,.45);color:#fff}
+html{-webkit-text-size-adjust:100%;scrollbar-color:#334155 #050816;scrollbar-width:thin}
+body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+*{-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:2px solid var(--accent,#22d3ee);outline-offset:3px;border-radius:8px}
+.bg-gradient{overflow:hidden}
+.bg-gradient::before,.bg-gradient::after{content:"";position:absolute;width:55vmax;height:55vmax;border-radius:50%;filter:blur(90px);opacity:.28;will-change:transform;pointer-events:none}
+.bg-gradient::before{background:#6366f1;top:-20vmax;right:-15vmax;animation:drift1 22s ease-in-out infinite alternate}
+.bg-gradient::after{background:#22d3ee;bottom:-25vmax;left:-20vmax;opacity:.16;animation:drift2 26s ease-in-out infinite alternate}
+@keyframes drift1{to{transform:translate3d(-12vmax,10vmax,0) scale(1.15)}}
+@keyframes drift2{to{transform:translate3d(14vmax,-8vmax,0) scale(1.1)}}
+.bg-gradient i{position:absolute;inset:0;background-image:linear-gradient(rgba(148,163,184,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(148,163,184,.05) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000 10%,transparent 70%);mask-image:radial-gradient(ellipse at 50% 30%,#000 10%,transparent 70%)}
+#scrollbar{position:fixed;top:0;right:0;left:0;height:3px;z-index:2000;background:var(--gradient);transform-origin:right;transform:scaleX(0);pointer-events:none}
+header{transition:padding .35s var(--ease),background .35s,box-shadow .35s}
+header.scrolled{padding-top:.6rem;padding-bottom:.6rem;background:rgba(5,8,22,.92);box-shadow:0 10px 40px rgba(0,0,0,.45)}
+.logo-icon{transition:transform .5s var(--ease)}
+.logo:hover .logo-icon{transform:rotate(-8deg) scale(1.08)}
+.gradient-text,.logo-text{background-size:200% auto}
+.gradient-text{animation:gshift 6s linear infinite}
+@keyframes gshift{to{background-position:200% center}}
+.btn-cta,.btn-primary-lg,.btn-sm,.btn,.filter-btn.active{position:relative;overflow:hidden}
+.btn-cta::after,.btn-primary-lg::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);transition:left .7s var(--ease)}
+.btn-cta:hover::after,.btn-primary-lg:hover::after{left:130%}
+.btn-cta:active,.btn-primary-lg:active,.btn-secondary-lg:active,.filter-btn:active{transform:scale(.97)}
+/* cards: spotlight that follows the pointer */
+.service-card,.project-card{position:relative;transform:translateZ(0);transition:transform .5s var(--ease),border-color .4s,box-shadow .4s,background .4s}
+.service-card::after,.project-card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .35s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(129,140,248,.16),transparent 45%)}
+.service-card:hover::after,.project-card:hover::after{opacity:1}
+.service-card:hover .service-icon{transform:translateY(-3px) rotate(-6deg) scale(1.08);box-shadow:0 10px 30px var(--primary-glow)}
+.service-icon{transition:transform .5s var(--ease),box-shadow .4s}
+.project-img-wrap::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(5,8,22,.55),transparent 55%);pointer-events:none}
+.project-link{transition:background .3s,color .3s,letter-spacing .3s}
+.project-link:hover{letter-spacing:.4px}
+/* scroll reveal */
+.js .reveal{opacity:0;transform:translate3d(0,28px,0);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--d,0s)}
+.js .reveal.in{opacity:1;transform:none}
+/* entrance */
+.hero .badge,.hero h1,.hero>p,.hero .hero-btns,.hero .stats-bar,.page-header>*{animation:rise .9s var(--ease) both}
+.hero h1{animation-delay:.1s}.hero>p{animation-delay:.2s}.hero .hero-btns{animation-delay:.3s}.hero .stats-bar{animation-delay:.45s}
+.page-header>*:nth-child(2){animation-delay:.1s}.page-header>*:nth-child(3){animation-delay:.2s}
+@keyframes rise{from{opacity:0;transform:translate3d(0,26px,0)}to{opacity:1;transform:none}}
+.stats-bar .stat-item{transition:transform .4s var(--ease)}
+.stats-bar .stat-item:hover{transform:translateY(-4px)}
+.search-box,.filter-btn,input,select,textarea{transition:border-color .3s,box-shadow .3s,background .3s,color .3s,transform .3s var(--ease)}
+.filter-btn:hover{transform:translateY(-2px)}
+footer{position:relative}
+footer::before{content:"";position:absolute;top:-1px;right:10%;left:10%;height:1px;background:linear-gradient(90deg,transparent,var(--primary),var(--accent),transparent)}
+nav ul{transition:opacity .3s}
+@media(max-width:768px){nav ul.open{animation:rise .35s var(--ease) both}}
+@media(max-width:768px){header{gap:.6rem}.logo{font-size:.95rem;gap:.35rem}.btn-cta{flex-shrink:0}.logo-text{white-space:nowrap}.logo-icon{width:34px;height:34px}.btn-cta{padding:.5rem .9rem;font-size:.85rem;white-space:nowrap;margin-inline-start:auto}.btn-cta span{display:none}}
+/* performance: skip rendering offscreen sections until needed */
+.section+.section,footer{content-visibility:auto;contain-intrinsic-size:auto 600px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.js .reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+
+    <header>
+        <a href="index.html" class="logo">
+            <div class="logo-icon">E</div>
+            <div class="logo-text">ELMON <span>Technology</span></div>
+        </a>
+        <nav>
+            <ul id="navMenu">
+                <li><a href="index.html" class="active">الرئيسية</a></li>
+                <li><a href="#services">خدماتنا</a></li>
+                <li><a href="projects.html">معرض الأعمال</a></li>
+                <!-- ✅ زر الأدمن - مخفي افتراضياً، يظهر فقط للأدمن -->
+                <li class="admin-only-link" style="display: none;">
+                    <a href="admin.html">🔐 لوحة التحكم</a>
+                </li>
+            </ul>
+        </nav>
+        <a href="https://wa.me/201000000000" target="_blank" class="btn-cta">
+            <span>💬</span> تواصل واتساب
+        </a>
+        <button class="mobile-toggle" onclick="document.getElementById('navMenu').classList.toggle('open')">☰</button>
+    </header>
+
+    <section class="hero">
+        <span class="badge">نحول أفكارك إلى واقع رقمي فائق السرعة</span>
+        <h1>
+            نبني <span class="gradient-text">متاجر ومواقع احترافية</span><br>
+            بتكلفة تشغيلية صفر
+        </h1>
+        <p>في <strong>ELMON Technology</strong> نصمم ونبرمج منصات ويب عصرية بلوحات تحكم متكاملة وأحدث تقنيات الاستضافة السحابية لضمان أعلى سرعة وأفضل تجربة لعملائك.</p>
+        <div class="hero-btns">
+            <a href="projects.html" class="btn-primary-lg">🚀 استكشف أعمالنا</a>
+            <a href="https://wa.me/201000000000" target="_blank" class="btn-secondary-lg">📞 اطلب عرض سعر</a>
+        </div>
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-num" data-target="50">0+</div>
+                <div class="stat-label">مشروع منفذ</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num" data-target="100">0%</div>
+                <div class="stat-label">رضا العملاء</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num" data-target="24">0/7</div>
+                <div class="stat-label">دعم فني</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num" data-target="99">0%</div>
+                <div class="stat-label">سرعة تحميل</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="section">
+        <div class="section-title">
+            <span class="eyebrow">خدماتنا</span>
+            <h2>ماذا نقدم في <span class="gradient-text">ELMON</span>؟</h2>
+            <p>حلول برمجية متكاملة مصممة خصيصاً لنمو أعمالك</p>
+        </div>
+        <div class="grid-3" id="servicesGrid">
+            <!-- يتم تحميلها من Firestore -->
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-title">
+            <span class="eyebrow">أعمالنا</span>
+            <h2>أحدث <span class="gradient-text">المشاريع المنفذة</span></h2>
+            <p>نماذج مختارة من أعمالنا التي تعمل بكفاءة على الإنترنت</p>
+        </div>
+        <div class="grid-3" id="featured-projects">
+            <div class="project-card">
+                <div class="skeleton" style="height:220px;"></div>
+                <div class="project-body">
+                    <div class="skeleton" style="height:20px;width:40%;margin-bottom:1rem;"></div>
+                    <div class="skeleton" style="height:24px;width:80%;margin-bottom:1rem;"></div>
+                    <div class="skeleton" style="height:60px;margin-bottom:1rem;"></div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="skeleton" style="height:220px;"></div>
+                <div class="project-body">
+                    <div class="skeleton" style="height:20px;width:40%;margin-bottom:1rem;"></div>
+                    <div class="skeleton" style="height:24px;width:80%;margin-bottom:1rem;"></div>
+                    <div class="skeleton" style="height:60px;margin-bottom:1rem;"></div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="skeleton" style="height:220px;"></div>
+                <div class="project-body">
+                    <div class="skeleton" style="height:20px;width:40%;margin-bottom:1rem;"></div>
+                    <div class="skeleton" style="height:24px;width:80%;margin-bottom:1rem;"></div>
+                    <div class="skeleton" style="height:60px;margin-bottom:1rem;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="view-all-box">
+            <a href="projects.html" class="btn-secondary-lg">عرض جميع المشاريع ←</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>ELMON Technology</h3>
+                <p>حلول برمجية وتطوير مواقع ومتاجر إلكترونية بأحدث التقنيات السحابية.</p>
+            </div>
+            <div class="footer-col">
+                <h4>روابط سريعة</h4>
+                <ul>
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="projects.html">معرض الأعمال</a></li>
+                    <li><a href="#services">خدماتنا</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>تواصل معنا</h4>
+                <ul>
+                    <li><a href="https://wa.me/201000000000" target="_blank">واتساب</a></li>
+                    <li><a href="mailto:info@elmon.tech">info@elmon.tech</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 <strong>ELMON Technology</strong>. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, doc, getDoc, limit, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { firebaseConfig } from "./firebase-config.js";
+
+        const sampleProjects = [
+            {
+                title: "متجر الأميرات للأزياء",
+                category: "متاجر إلكترونية",
+                desc: "متجر إلكتروني متكامل لعرض الملابس مع فلترة ذكية حسب المقاس واللون والسعر وسلة مشتريات تفاعلية.",
+                image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600&q=80",
+                url: "https://alamirat.vercel.app/"
+            },
+            {
+                title: "نظام إدارة مبيعات ومخازن",
+                category: "أنظمة إدارة",
+                desc: "لوحة تحكم سحابية لمتابعة الطلبات اليومية، حالة الشحن، وتقارير الأرباح الفورية.",
+                image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80",
+                url: "#"
+            },
+            {
+                title: "منصة عقارية تفاعلية",
+                category: "مواقع شركات",
+                desc: "موقع تعريفي لشركة تطوير عقاري لعرض الوحدات السكنية والتواصل المباشر مع فريق المبيعات.",
+                image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=600&q=80",
+                url: "#"
+            }
+        ];
+
+        const sampleServices = [
+            { icon: "🛍️", title: "المتاجر الإلكترونية", desc: "متاجر متكاملة بسلة مشتريات ذكية، فلترة متقدمة للمنتجات، ولوحة تحكم لإدارة المخزون والطلبات." },
+            { icon: "🏢", title: "مواقع الشركات والبراندات", desc: "واجهات عصرية متجاوبة مع جميع الشاشات تعكس هوية شركتك وتجذب العملاء المحتملين." },
+            { icon: "⚡", title: "بنية سحابية اقتصادية", desc: "نعتمد على تقنيات Firebase و Vercel لتوفير استضافة فائقة السرعة وتقليل التكاليف." },
+            { icon: "🎨", title: "تصميم واجهات UI/UX", desc: "تصميم واجهات جذابة وسهلة الاستخدام مع تجربة مستخدم سلسة تزيد من معدل التحويل." },
+            { icon: "📱", title: "تطبيقات ويب تقدمية PWA", desc: "تطبيقات ويب تعمل على الهواتف كتطبيقات أصلية مع دعم العمل بدون إنترنت." },
+            { icon: "🔧", title: "صيانة ودعم فني", desc: "دعم فني مستمر، تحديثات دورية، ومراقبة أداء المواقع لضمان عملها بأعلى كفاءة." }
+        ];
+
+        let db = null;
+        try {
+            const app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+        } catch (e) {
+            console.warn("Firebase init failed:", e.message);
+        }
+
+        // ===== تحميل الخدمات =====
+        async function loadServices() {
+            const container = document.getElementById('servicesGrid');
+            let services = sampleServices;
+            
+            try {
+                if (db && firebaseConfig.apiKey !== "YOUR_API_KEY") {
+                    const snapshot = await getDocs(collection(db, "services"));
+                    if (!snapshot.empty) {
+                        services = snapshot.docs.map(d => d.data());
+                    }
+                }
+            } catch (e) {
+                console.warn("Using sample services:", e.message);
+            }
+
+            container.innerHTML = services.map(s => `
+                <div class="service-card">
+                    <div class="service-icon">${s.icon || '⚙️'}</div>
+                    <h3>${s.title}</h3>
+                    <p>${s.desc}</p>
+                </div>
+            `).join('');
+        }
+
+        // ===== تحميل المشاريع المميزة =====
+        async function loadFeaturedProjects() {
+            const container = document.getElementById('featured-projects');
+            let projects = sampleProjects;
+
+            try {
+                if (db && firebaseConfig.apiKey !== "YOUR_API_KEY") {
+                    const q = query(collection(db, "projects"), orderBy("createdAt", "desc"), limit(3));
+                    const snapshot = await getDocs(q);
+                    if (!snapshot.empty) {
+                        projects = snapshot.docs.map(d => d.data());
+                    }
+                }
+            } catch (e) {
+                console.warn("Using sample projects:", e.message);
+            }
+
+            container.innerHTML = projects.map(proj => `
+                <div class="project-card">
+                    <div class="project-img-wrap">
+                        <img src="${proj.image}" alt="${proj.title}" class="project-img" loading="lazy" decoding="async">
+                    </div>
+                    <div class="project-body">
+                        <span class="project-cat">${proj.category}</span>
+                        <h3 class="project-title">${proj.title}</h3>
+                        <p class="project-desc">${proj.desc}</p>
+                        <a href="${proj.url}" target="_blank" class="project-link">معاينة المشروع حياً →</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ===== تحميل إعدادات الموقع =====
+        async function loadSettings() {
+            try {
+                if (!db || firebaseConfig.apiKey === "YOUR_API_KEY") return;
+                const docSnap = await getDoc(doc(db, "settings", "site"));
+                if (docSnap.exists()) {
+                    const s = docSnap.data();
+                    if (s.whatsapp) {
+                        document.querySelectorAll('a[href*="wa.me"]').forEach(a => {
+                            a.href = `https://wa.me/${s.whatsapp}`;
+                        });
+                    }
+                    if (s.email) {
+                        document.querySelectorAll('a[href^="mailto:"]').forEach(a => {
+                            a.href = `mailto:${s.email}`;
+                            a.textContent = s.email;
+                        });
+                    }
+                }
+            } catch (e) {
+                console.warn("Settings not loaded:", e.message);
+            }
+        }
+
+        loadServices();
+        loadFeaturedProjects();
+        loadSettings();
+
+        // عدّاد الإحصائيات
+        const counters = document.querySelectorAll('.stat-num');
+        const animateCounter = (el) => {
+            const target = parseInt(el.dataset.target);
+            const suffix = el.textContent.replace(/\d+/, '');
+            let current = 0;
+            const step = target / 50;
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    el.textContent = target + suffix;
+                    clearInterval(timer);
+                } else {
+                    el.textContent = Math.floor(current) + suffix;
+                }
+            }, 30);
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(c => observer.observe(c));
+    </script>
+
+    <!-- ✅ سكريبت التحقق من الأدمن وإظهار الزر -->
+    <script type="module" src="./auth-guard.js"></script>
+<script>
+(function(){
+var d=document,de=d.documentElement,rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var bar=d.createElement('div');bar.id='scrollbar';d.body.appendChild(bar);
+var bg=d.querySelector('.bg-gradient');if(bg)bg.insertAdjacentHTML('afterbegin','<i></i>');
+var h=d.querySelector('header'),tick=false;
+function upd(){var m=de.scrollHeight-innerHeight;bar.style.transform='scaleX('+(m>0?scrollY/m:0)+')';if(h)h.classList.toggle('scrolled',scrollY>24);tick=false}
+addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});upd();
+if(rm)return;
+de.classList.add('js');
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+function scan(root){
+ root.querySelectorAll('.section-title,.service-card,.project-card,.view-all-box,.footer-content,.footer-bottom').forEach(function(el){
+  if(el.dataset.rv||(el.getAttribute('style')||'').indexOf('animation')>-1)return;
+  el.dataset.rv=1;var p=el.parentElement,i=[].indexOf.call(p.children,el);
+  el.style.setProperty('--d',(Math.min(i,6)*.08)+'s');el.classList.add('reveal');io.observe(el)})}
+scan(d);
+d.querySelectorAll('.grid-3').forEach(function(g){new MutationObserver(function(){scan(g)}).observe(g,{childList:true})});
+d.addEventListener('pointermove',function(e){var c=e.target.closest&&e.target.closest('.service-card,.project-card');if(!c)return;var r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px')},{passive:true});
+})();
+</script>
+</body>
+</html>
