@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>English Journey — عرض المشروع ضمن ملف الأعمال</title>
+  <meta name="description" content="صفحة تعريفية لمشروع English Journey لتنظيم المهام اليومية لتعلم اللغة الإنجليزية وتتبع الدقائق وسلاسل الاستمرارية." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Cairo', 'sans-serif'],
+          },
+          colors: {
+            emeraldbrand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              600: '#059669',
+              700: '#047857',
+              900: '#064e3b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-emeraldbrand-600 selection:text-white">
+
+  <!-- الشريط العلوي -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <a href="#" class="flex items-center gap-3 font-black text-lg text-slate-900">
+        <span class="w-9 h-9 rounded-xl bg-emeraldbrand-600 text-white flex items-center justify-center font-black">E</span>
+        <span>English Journey</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-7 text-sm font-bold text-slate-600">
+        <a href="#overview" class="hover:text-emeraldbrand-700 transition">نظرة عامة</a>
+        <a href="#daily-system" class="hover:text-emeraldbrand-700 transition">نظام المهام اليومية</a>
+        <a href="#case-study" class="hover:text-emeraldbrand-700 transition">دراسة الحالة</a>
+      </nav>
+
+      <!-- استبدل الرابط برابط النسخة التجريبية أو المباشرة المناسب لملف أعمالك -->
+      <a href="https://moragamal.vercel.app/English.html" target="_blank" rel="noopener noreferrer"
+         class="inline-flex items-center gap-2 bg-emeraldbrand-600 hover:bg-emeraldbrand-700 text-white text-sm font-extrabold px-4 py-2 rounded-xl transition">
+        <span>فتح التطبيق</span>
+        <span aria-hidden="true">←</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- القسم الافتتاحي -->
+  <section id="overview" class="py-14 lg:py-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-10 items-center">
+      <div class="lg:col-span-7 space-y-5 text-center lg:text-right">
+        <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-extrabold bg-emeraldbrand-50 text-emeraldbrand-700 border border-emeraldbrand-200">
+          <span>📚</span>
+          <span>مشروع ضمن ملف أعمالي • Daily Learning Hub</span>
+        </span>
+
+        <h1 class="text-3xl sm:text-5xl font-black text-slate-900 leading-tight">
+          منصة متكاملة لتنظيم رحلة تعلّم اللغة الإنجليزية يومياً
+        </h1>
+
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+          يجمع تطبيق <strong class="text-slate-900">English Journey</strong> المهام اليومية، تتبع الدقائق، عداد الاستمرارية (<span dir="ltr" class="font-bold">Daily Streak</span>)، والتقدم التراكمي في واجهة واضحة تغطي أقسام <span dir="ltr" class="font-semibold">Home, Chunks, Videos, Reading, WordUp, Progress</span>.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2">
+          <a href="https://moragamal.vercel.app/English.html" target="_blank" rel="noopener noreferrer"
+             class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-emeraldbrand-600 hover:bg-emeraldbrand-700 text-white font-extrabold px-6 py-3.5 rounded-xl shadow-sm transition">
+            <span>🚀 استعراض التطبيق المباشر</span>
+          </a>
+          <a href="#daily-system"
+             class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-100 text-slate-700 font-bold px-6 py-3.5 rounded-xl border border-slate-200 transition">
+            <span>تفاصيل المهام اليومية</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- بطاقة تلخيص مؤشرات التطبيق -->
+      <div class="lg:col-span-5">
+        <div class="bg-white rounded-3xl border border-slate-200 shadow-lg p-6 space-y-5">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+            <div>
+              <p class="text-xs font-bold text-slate-400">لوحة المتابعة اليومية</p>
+              <h2 class="text-lg font-black text-slate-900">English Journey</h2>
+            </div>
+            <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-amber-50 text-amber-700 border border-amber-200">
+              🔥 Streak Tracker
+            </span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 text-center">
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
+              <div class="text-xs font-bold text-slate-500">TODAY'S TASKS</div>
+              <div class="text-xl font-black text-slate-900 mt-1">0 / 5</div>
+              <div class="text-[11px] text-slate-400">5 مهام يومية منظمة</div>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
+              <div class="text-xs font-bold text-slate-500">MINUTES TODAY</div>
+              <div class="text-xl font-black text-emeraldbrand-700 mt-1">0 min</div>
+              <div class="text-[11px] text-slate-400">هدف يومي: 30 دقيقة</div>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
+              <div class="text-xs font-bold text-slate-500">DAILY STREAK</div>
+              <div class="text-xl font-black text-amber-600 mt-1">1 days</div>
+              <div class="text-[11px] text-slate-400">متابعة الاستمرارية</div>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
+              <div class="text-xs font-bold text-slate-500">TOTAL PROGRESS</div>
+              <div class="text-xl font-black text-indigo-600 mt-1">0 / 1000</div>
+              <div class="text-[11px] text-slate-400">مؤشر التقدم الكلي</div>
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-2xl bg-emeraldbrand-50/70 border border-emeraldbrand-100 text-xs font-bold text-emeraldbrand-900 flex items-center justify-between">
+            <span>📋 Today's Activity Log</span>
+            <span>توثيق فوري للأنشطة</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- نظام المهام اليومية -->
+  <section id="daily-system" class="py-16 bg-white border-y border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl mb-10 space-y-2">
+        <span class="text-xs font-extrabold text-emeraldbrand-700">آلية العمل اليومية</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900">المهام اليومية الخمس (Daily Tasks)</h2>
+        <p class="text-slate-600 text-sm sm:text-base">
+          توزيع متوازن للمهارات اللغوية اليومية مع تحديد زمن مقترح لكل مهمة لتسهيل الالتزام اليومي.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start justify-between gap-3">
+          <div>
+            <h3 class="font-extrabold text-slate-900 text-base">📚 Learn 10 Chunks</h3>
+            <p class="text-xs text-slate-600 mt-1">تعلّم وتثبيت 10 عبارات أو مقاطع لغوية جديدة يومياً.</p>
+          </div>
+          <span class="text-xs font-extrabold px-2.5 py-1 rounded-lg bg-emeraldbrand-100 text-emeraldbrand-800 shrink-0">15 min</span>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start justify-between gap-3">
+          <div>
+            <h3 class="font-extrabold text-slate-900 text-base">🎬 Watch 1 Video</h3>
+            <p class="text-xs text-slate-600 mt-1">مشاهدة فيديو تعليمي باللغة الإنجليزية لتنمية الاستماع.</p>
+          </div>
+          <span class="text-xs font-extrabold px-2.5 py-1 rounded-lg bg-emeraldbrand-100 text-emeraldbrand-800 shrink-0">10 min</span>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start justify-between gap-3">
+          <div>
+            <h3 class="font-extrabold text-slate-900 text-base">📖 Read 15-30 Minutes</h3>
+            <p class="text-xs text-slate-600 mt-1">قراءة نصوص أو مقالات باللغة الإنجليزية لمدة 15 دقيقة على الأقل.</p>
+          </div>
+          <span class="text-xs font-extrabold px-2.5 py-1 rounded-lg bg-emeraldbrand-100 text-emeraldbrand-800 shrink-0">20 min</span>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start justify-between gap-3">
+          <div>
+            <h3 class="font-extrabold text-slate-900 text-base">📱 Practice with WordUp</h3>
+            <p class="text-xs text-slate-600 mt-1">مراجعة المفردات والتدريب العملي عبر تطبيق WordUp.</p>
+          </div>
+          <span class="text-xs font-extrabold px-2.5 py-1 rounded-lg bg-emeraldbrand-100 text-emeraldbrand-800 shrink-0">10 min</span>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start justify-between gap-3">
+          <div>
+            <h3 class="font-extrabold text-slate-900 text-base">🎤 Speak for 5 Minutes</h3>
+            <p class="text-xs text-slate-600 mt-1">التحدث بصوت مرتفع لتعزيز الطلاقة وكسر حاجز التردد.</p>
+          </div>
+          <span class="text-xs font-extrabold px-2.5 py-1 rounded-lg bg-emeraldbrand-100 text-emeraldbrand-800 shrink-0">5 min</span>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-emeraldbrand-900 text-white flex flex-col justify-between">
+          <div>
+            <h3 class="font-extrabold text-base">📊 سجل النشاط والتقدم</h3>
+            <p class="text-xs text-emeraldbrand-100 mt-1 leading-relaxed">
+              تجميع تلقائي للدقائق، المهام المنجزة، وسجل النشاط اليومي في مكان واحد.
+            </p>
+          </div>
+          <span class="text-xs font-bold text-emeraldbrand-200 mt-3">إجمالي زمن المهام: 60 دقيقة</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- دراسة الحالة -->
+  <section id="case-study" class="py-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-white rounded-3xl border border-slate-200 p-7 sm:p-10 shadow-xs">
+        <span class="text-xs font-extrabold text-emeraldbrand-700">ملخص المشروع (Case Study)</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mt-1 mb-8">لماذا صُمم English Journey وكيف يعمل؟</h2>
+
+        <div class="grid md:grid-cols-3 gap-7">
+          <div class="space-y-2">
+            <h3 class="font-extrabold text-slate-900">التحدي</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              تشتت المتعلم بين الفيديوهات والقراءة والمفردات دون روتين يومي واضح يقيس الاستمرارية الفعلية.
+            </p>
+          </div>
+          <div class="space-y-2">
+            <h3 class="font-extrabold text-slate-900">الحل</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              تنظيم اليوم حول 5 مهام قابلة للقياس مع بطاقات إحصاء فورية وسجل نشاط يومي واضح.
+            </p>
+          </div>
+          <div class="space-y-2">
+            <h3 class="font-extrabold text-slate-900">التنفيذ</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              واجهة ويب متجاوبة تركز على سهولة التفاعل اليومي وتقسيم المحتوى إلى تبويبات واضحة.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t border-slate-200 bg-white py-6 text-center text-xs sm:text-sm text-slate-500">
+    مشروع <strong class="text-slate-700">English Journey</strong> — ضمن ملف الأعمال الشخصي
+  </footer>
+
+</body>
+</html>
