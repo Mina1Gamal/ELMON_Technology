@@ -446,7 +446,9 @@ nav ul{transition:opacity .3s}
                 </li>
             </ul>
         </nav>
-
+        <a href="https://wa.me/201000000000" target="_blank" class="btn-cta">
+            <span>💬</span> تواصل واتساب
+        </a>
         <button class="mobile-toggle" onclick="document.getElementById('navMenu').classList.toggle('open')">☰</button>
     </header>
 
@@ -459,6 +461,7 @@ nav ul{transition:opacity .3s}
         <p>في <strong>ELMON Technology</strong> نصمم ونبرمج منصات ويب عصرية بلوحات تحكم متكاملة وأحدث تقنيات الاستضافة السحابية لضمان أعلى سرعة وأفضل تجربة لعملائك.</p>
         <div class="hero-btns">
             <a href="projects.html" class="btn-primary-lg">🚀 استكشف أعمالنا</a>
+            <a href="contact.html" class="btn-secondary-lg">📞 اطلب عرض سعر</a>
         </div>
         <div class="stats-bar">
             <div class="stat-item">
@@ -551,6 +554,14 @@ nav ul{transition:opacity .3s}
                     <li><a href="projects.html">معرض الأعمال</a></li>
                     <li><a href="#services">خدماتنا</a></li>
                     <li><a href="contact.html">تواصل معنا</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>تواصل معنا</h4>
+                <ul>
+                    <li><a href="contact.html">تواصل معنا</a></li>
+                    <li><a href="https://wa.me/201000000000" target="_blank">واتساب</a></li>
+                    <li><a href="mailto:info@elmon.tech">info@elmon.tech</a></li>
                 </ul>
             </div>
         </div>
@@ -692,7 +703,8 @@ nav ul{transition:opacity .3s}
             { name: "لوحة التطوير — 90 يومًا", name_en: "90-Day Development Dashboard", desc: "متابعة يومية، تقويم 90 يومًا، مكتبة كورسات وإنجازات في لوحة واحدة", desc_en: "Daily tracking, a 90-day calendar, a course library and achievements in one dashboard", icon: "📅", color: "#10b981", url: "90-days-showcase.html", cta: "عرض المشروع ←", cta_en: "View project ←" },
             { name: "English Journey", name_en: "English Journey", desc: "منصة يومية متكاملة لتعلم الإنجليزية بمهارات ونظام متابعة", desc_en: "A complete daily platform for learning English with skills and progress tracking", icon: "📚", color: "#34d399", url: "english-showcase.html", cta: "عرض المشروع ←", cta_en: "View project ←" },
             { name: "Voice Studio", name_en: "Voice Studio", desc: "تحويل النص الإنجليزي إلى صوت طبيعي بأصوات متعددة", desc_en: "Turn English text into natural speech with multiple voices", icon: "🎙️", color: "#0ea5e9", url: "voice-studio-showcase.html", cta: "عرض المشروع ←", cta_en: "View project ←" },
-            { name: "جدول الطالب", name_en: "Student Schedule", desc: "تنظيم ذكي لليوم الدراسي والمهام والإنجازات — نسخة تجريبية", desc_en: "Smart organization of the study day, tasks and achievements. Demo version", icon: "🗓️", color: "#8b5cf6", url: "demo_Schedule.html", cta: "تجربة مباشرة ←", cta_en: "Try it live ←" }
+            { name: "جدول الطالب", name_en: "Student Schedule", desc: "تنظيم ذكي لليوم الدراسي والمهام والإنجازات — نسخة تجريبية", desc_en: "Smart organization of the study day, tasks and achievements. Demo version", icon: "🗓️", color: "#8b5cf6", url: "demo_Schedule.html", cta: "تجربة مباشرة ←", cta_en: "Try it live ←" },
+            { name: "مولّد QR Code", name_en: "QR Code Generator", desc: "حوّل أي رابط أو نص إلى QR بتصاميم متعددة وتحميل PNG", desc_en: "Turn any link or text into a QR code with many designs and PNG download", icon: "📱", color: "#06b6d4", url: "qr-generator-showcase.html", cta: "عرض المشروع ←", cta_en: "View project ←" }
         ];
         let appsList = defaultApps;
         const esc = (v) => String(v == null ? '' : v).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
